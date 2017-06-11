@@ -42,4 +42,9 @@ public class SplashState extends GameState{
     public void dispose() {
 
     }
+
+    @Override
+    public void handleInput() {
+
+    }
 }

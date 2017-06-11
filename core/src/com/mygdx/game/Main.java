@@ -35,6 +35,7 @@ public class Main extends ApplicationAdapter {
 
 	private OrthographicCamera camera;
 
+
 	@Override
 	public void create () {
 		float w = Gdx.graphics.getWidth();
@@ -75,4 +76,6 @@ public class Main extends ApplicationAdapter {
 		//batch.dispose();
 
 	}
+
+
 }

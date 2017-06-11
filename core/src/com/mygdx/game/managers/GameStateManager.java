@@ -2,6 +2,7 @@ package com.mygdx.game.managers;
 
 import com.mygdx.game.Main;
 import com.mygdx.game.states.GameState;
+import com.mygdx.game.states.MenuState;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.SplashState;
 
@@ -24,7 +25,7 @@ public class GameStateManager {
     public GameStateManager(final Main app){
         this.app=app;
         this.states=new Stack<GameState>();
-        this.setState(State.SPLASH);
+        this.setState(State.MAINMENU);
     }
 
     public Main main(){
@@ -55,7 +56,7 @@ public class GameStateManager {
     private GameState getState(State state){
         switch(state){
             case SPLASH: return new SplashState(this);
-            case MAINMENU: return null;//new MenuState(this):
+            case MAINMENU: return new MenuState(this);
             case PLAY: return new PlayState(this);
 
         }
