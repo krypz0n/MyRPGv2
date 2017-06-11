@@ -19,6 +19,7 @@ public class DesktopInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch(keycode)
         {
+
             case Input.Keys.A:
                 game.inputUpdateX(-0.6f);
                 break;
