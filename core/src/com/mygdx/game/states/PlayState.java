@@ -31,6 +31,8 @@ public class PlayState extends GameState{
     private World world;
     private Body player;
 
+    private float inputUpdtX=0, inputUpdtY=0;
+
     private Texture tex;
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -94,8 +96,14 @@ public class PlayState extends GameState{
         camera.position.set(position);
         camera.update();
     }
-    public void inputUpdate(float horF,float verF) { //converter isto
-        player.setLinearVelocity(horF*5,verF*5);
+    public void inputUpdate() { //converter isto
+        player.setLinearVelocity(inputUpdtX*5,inputUpdtY*5);
+    }
+    public void inputUpdateY(float y) {
+        inputUpdtY=y;
+    }
+    public void inputUpdateX(float x) {
+        inputUpdtX=x;
     }
 
     @Override
@@ -121,4 +129,7 @@ public class PlayState extends GameState{
         tmr.dispose();
         map.dispose();
     }
+
+
+
 }
