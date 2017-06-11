@@ -400,7 +400,7 @@ public class PlayState extends GameState{
         if (playerTexTime>0.4)
         {playerTexTime=0;}
         Vector2 vec=player.getLinearVelocity();
-        System.out.println(vec.x+" "+vec.y);
+        //System.out.println(vec.x+" "+vec.y);
 
         if(vec.x==0.0&&vec.y==0.0) {
 
