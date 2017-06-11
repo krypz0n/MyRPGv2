@@ -83,8 +83,8 @@ public class PlayState extends GameState{
         world= new World(new Vector2(0,0),false); //gravidade
 		b2dr=new Box2DDebugRenderer();
 
-		//player=createBox(240,1328,16,16,false);
-        player=createBox(900,1072,16,16,false);
+		player=createBox(240,1328,16,16,false);
+       // player=createBox(900,1072,16,16,false);
         ogre=createBox(1120,1072,16,16,false);
 		//platform=createBox(0,0,64,32,true); //isstatic ultimo
 
