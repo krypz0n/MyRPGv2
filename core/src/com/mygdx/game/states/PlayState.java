@@ -31,25 +31,33 @@ public class PlayState extends GameState{
     private Box2DDebugRenderer b2dr;
     private World world;
     private Body player;
+    private Body ogre;
 
     private float inputUpdtX=0, inputUpdtY=0;
 
-    private Texture tex;
+    private Texture playerTex;
+    private Texture ogreTex;
     private Texture arrowleft;
     private Texture arrowright;
     private Texture arrowup;
     private Texture arrowdown;
+
+    float ogreInputUpdtX=0;
+    float ogreInputUpdtY=0;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         world= new World(new Vector2(0,0),false); //gravidade
 		b2dr=new Box2DDebugRenderer();
 
-		player=createBox(240,1328,20,20,false);
+		player=createBox(240,1328,16,16,false);
+        ogre=createBox(1120,1072,16,16,false);
 		//platform=createBox(0,0,64,32,true); //isstatic ultimo
 
 		batch=new SpriteBatch();
-		tex=new Texture("Images/hero_down1.png");
+		playerTex=new Texture("Images/hero_down1.png");
+        ogreTex =new Texture("Images/ogre_down.png");
+
         arrowleft=new Texture("Images/arrow_left.png");
         arrowright=new Texture("Images/arrow_right.png");
         arrowup=new Texture("Images/arrow_up.png");
@@ -96,8 +104,13 @@ public class PlayState extends GameState{
 		batch.setProjectionMatrix(camera.combined);
         inputUpdate();
         heroUpdate();
+        ogreCheck();
+        ogreUpdate();
+        System.out.println("x: "+ogre.getPosition().x+" y: "+ogre.getPosition().y);
 
     }
+
+
 
 
     public void cameraUpdate() {
@@ -119,11 +132,83 @@ public class PlayState extends GameState{
     public void inputUpdateX(float x)
     {
         inputUpdtX+=x;
+    } //0.6f
+
+    private void ogreUpdate() {
+        ogre.setLinearVelocity(ogreInputUpdtX,ogreInputUpdtY);
+        }
+
+    private void ogreCheck() {
+        if(player.getPosition().x>30)
+            ogreChase();
+        else
+            ogreReturn();
+
+    }
+
+    private void ogreReturn() {
+        double targetX1=35;
+        double targetX2=35.2;
+        double targetY1=33.5;
+        double targetY2=33.7;
+        System.out.println("bang");
+        if(ogre.getPosition().x>targetX1 && ogre.getPosition().x<targetX2)
+        {
+            ogreInputUpdtX=0f;
+        }
+        else if((ogre.getPosition().x>targetX1))
+        {
+            ogreInputUpdtX= -0.5f;
+        }
+        else if(ogre.getPosition().x<targetX1) {
+
+            ogreInputUpdtX=0.5f;
+        }
+        else ogreInputUpdtX=0f;
+
+        if(ogre.getPosition().y>targetY1 && ogre.getPosition().y<targetY2)
+        {
+            ogreInputUpdtY=0;
+        }
+        else if(ogre.getPosition().y>targetY1)
+        {
+            ogreInputUpdtY= -0.5f;
+        }
+        else if(ogre.getPosition().y<targetY2) {
+            ogreInputUpdtY=0.5f;
+        }
+        else ogreInputUpdtY=0f;
+    }
+
+
+    private void ogreChase() {
+
+        float targetX=player.getPosition().x;
+        float targetY=player.getPosition().y;
+
+        if(ogre.getPosition().x>targetX)
+        {
+             ogreInputUpdtX= -0.7f;
+        }
+        else if(ogre.getPosition().x<targetX) {
+
+            ogreInputUpdtX=0.7f;
+        }
+        else ogreInputUpdtX=0f;
+
+        if(ogre.getPosition().y>targetY)
+        {
+            ogreInputUpdtY= -0.7f;
+        }
+        else if(ogre.getPosition().y<targetY) {
+            ogreInputUpdtY=0.7f;
+        }
+        else ogreInputUpdtY=0f;
     }
 
 
     private void heroUpdate() {
-
+//TEXTURAS
     }
     @Override
     public void render() {
@@ -132,14 +217,14 @@ public class PlayState extends GameState{
 
 
         b2dr.render(world,camera.combined.scl(PPM));
-        tmr.render();
+        //tmr.render();
         batch.begin();  //nao meter gamelogic aqui
-        batch.draw(tex,player.getPosition().x*PPM-(tex.getWidth()/2),player.getPosition().y*PPM-(tex.getHeight()/3));
-        batch.draw(arrowleft,camera.position.x-(V_WIDTH/4),camera.position.y-(V_HEIGHT/4));
-        batch.draw(arrowright,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()*2),camera.position.y-(V_HEIGHT/4));
-        batch.draw(arrowdown,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4));
-        batch.draw(arrowup,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4)+(arrowup.getHeight()));
-
+        batch.draw(playerTex,player.getPosition().x*PPM-(playerTex.getWidth()/2),player.getPosition().y*PPM-(playerTex.getHeight()/3));
+//        batch.draw(arrowleft,camera.position.x-(V_WIDTH/4),camera.position.y-(V_HEIGHT/4));
+//        batch.draw(arrowright,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()*2),camera.position.y-(V_HEIGHT/4));
+//        batch.draw(arrowdown,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4));
+//        batch.draw(arrowup,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4)+(arrowup.getHeight()));
+        batch.draw(ogreTex,ogre.getPosition().x*PPM-(ogreTex.getWidth()/2),ogre.getPosition().y*PPM-(ogreTex.getHeight()/2));
         batch.end();
     }
     public void handleInput(){}
