@@ -15,6 +15,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.input.DesktopInputProcessor;
@@ -32,6 +37,8 @@ public class PlayState extends GameState{
     private World world;
     private Body player;
     private Body ogre;
+
+    private Boolean running=true;
 
     private double ogreTexTime=0;
     private float inputUpdtX=0, inputUpdtY=0;
@@ -74,11 +81,12 @@ public class PlayState extends GameState{
         tmr= new OrthogonalTiledMapRenderer(map);
         tmr2= new OrthogonalTiledMapRenderer(map2);
 
-
         TiledObjectUtil.parseTiledObjectLayer(world,map.getLayers().get("SOLIDLAYER").getObjects());
 
         DesktopInputProcessor proc = new DesktopInputProcessor(this);
         Gdx.input.setInputProcessor(proc);
+
+        createCollisionListener();
     }
 
     public Body createBox(int x, int y,int width, int height, boolean isStatic) { //definir no mundo o player?
@@ -102,11 +110,42 @@ public class PlayState extends GameState{
         return pBody;
     }
 
+    public void createCollisionListener(){
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+                if(fixtureA.getBody()==player && fixtureB.getBody()==ogre) {
+                    running=false;
+                }
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        });
+    }
+
     @Override
     public void update(float delta) {
 
+        gameCheck();
 		world.step(1/60f,6,2);
-
 		cameraUpdate();
 		tmr.setView(camera);
         tmr2.setView(camera);
@@ -115,6 +154,15 @@ public class PlayState extends GameState{
         heroUpdate();
         ogreUpdate(delta);
 
+    }
+
+    private void gameCheck() {
+        if(running==false)
+        {
+            gsm.setState((GameStateManager.State.MAINMENU));
+            System.out.println("gg");
+
+        }
     }
 
     private void ogreUpdate(float delta) {
@@ -226,7 +274,6 @@ public class PlayState extends GameState{
         }
         else
             ogreTex = ogreTex2;
-
 
 
     }
