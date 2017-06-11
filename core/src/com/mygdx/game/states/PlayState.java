@@ -33,10 +33,13 @@ public class PlayState extends GameState{
     private Body player;
     private Body ogre;
 
+    private double ogreTexTime=0;
     private float inputUpdtX=0, inputUpdtY=0;
 
     private Texture playerTex;
     private Texture ogreTex;
+    private Texture ogreTex1;
+    private Texture ogreTex2;
     private Texture arrowleft;
     private Texture arrowright;
     private Texture arrowup;
@@ -50,13 +53,18 @@ public class PlayState extends GameState{
         world= new World(new Vector2(0,0),false); //gravidade
 		b2dr=new Box2DDebugRenderer();
 
-		player=createBox(240,1328,16,16,false);
+		//player=createBox(240,1328,16,16,false);
+        player=createBox(900,1072,16,16,false);
         ogre=createBox(1120,1072,16,16,false);
 		//platform=createBox(0,0,64,32,true); //isstatic ultimo
 
 		batch=new SpriteBatch();
 		playerTex=new Texture("Images/hero_down1.png");
         ogreTex =new Texture("Images/ogre_down.png");
+        ogreTex1 =new Texture("Images/ogre_down.png");
+
+        ogreTex2 =new Texture("Images/ogre_up.png");
+
 
         arrowleft=new Texture("Images/arrow_left.png");
         arrowright=new Texture("Images/arrow_right.png");
@@ -109,13 +117,13 @@ public class PlayState extends GameState{
 		batch.setProjectionMatrix(camera.combined);
         inputUpdate();
         heroUpdate();
-        ogreUpdate();
+        ogreUpdate(delta);
 
     }
 
-    private void ogreUpdate() {
+    private void ogreUpdate(float delta) {
         ogreCheck();
-        ogreSpeedUpdate();
+        ogreSpeedUpdate(delta);
     }
 
 
@@ -140,8 +148,11 @@ public class PlayState extends GameState{
         inputUpdtX+=x;
     } //0.6f
 
-    private void ogreSpeedUpdate() {
+    private void ogreSpeedUpdate(float delta) {
+
         ogre.setLinearVelocity(ogreInputUpdtX,ogreInputUpdtY);
+        if((ogreInputUpdtY!=0 )|| (ogreInputUpdtY!=0))
+            ogreChangeAppearance(delta);
         }
 
     private void ogreCheck() {
@@ -184,6 +195,7 @@ public class PlayState extends GameState{
 
     private void ogreChase() {
 
+
         float targetX=player.getPosition().x;
         float targetY=player.getPosition().y;
 
@@ -205,6 +217,23 @@ public class PlayState extends GameState{
             ogreInputUpdtY=0.9f;
         }
         else ogreInputUpdtY=0f;
+    }
+
+    private void ogreChangeAppearance(float delta) {
+        ogreTexTime+=delta;
+        System.out.println(ogreTexTime);
+        if (ogreTexTime>0.6)
+        {
+            ogreTexTime=0;
+        }
+        if(ogreTexTime>0.3) {
+            ogreTex = ogreTex1;
+        }
+        else
+            ogreTex = ogreTex2;
+
+
+
     }
 
 

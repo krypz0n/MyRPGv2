@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="2017.05.26" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="55">
+<map version="2017.05.26" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="58">
  <tileset firstgid="1" source="Tiles/pokemontiles.tmx"/>
  <objectgroup name="SOLIDLAYER">
   <object id="2" x="960" y="384">
@@ -65,8 +65,8 @@
   <object id="52" x="1152" y="544">
    <polyline points="0,0 32,0 32,16 0,16 0,0"/>
   </object>
-  <object id="54" x="1024" y="528">
-   <polyline points="0,0 32,0 32,32 0,32 0,0"/>
+  <object id="57" x="1024" y="544">
+   <polyline points="0,0 0,16 32,16 32,0 16,-16 0,0"/>
   </object>
  </objectgroup>
  <layer name="CHAO" width="100" height="100">
