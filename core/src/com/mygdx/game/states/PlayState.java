@@ -45,6 +45,7 @@ public class PlayState extends GameState{
     private Texture arrowup;
     private Texture arrowdown;
 
+
     float ogreInputUpdtX=0;
     float ogreInputUpdtY=0;
 
@@ -62,16 +63,11 @@ public class PlayState extends GameState{
 		playerTex=new Texture("Images/hero_down1.png");
         ogreTex =new Texture("Images/ogre_down.png");
         ogreTex1 =new Texture("Images/ogre_down.png");
-
         ogreTex2 =new Texture("Images/ogre_up.png");
-
-
         arrowleft=new Texture("Images/arrow_left.png");
         arrowright=new Texture("Images/arrow_right.png");
         arrowup=new Texture("Images/arrow_up.png");
         arrowdown=new Texture("Images/arrow_down.png");
-
-
 		map= new TmxMapLoader().load("Maps/FinalMap.tmx");
         map2= new TmxMapLoader().load("Maps/FinalMap2.tmx");
 
@@ -221,12 +217,11 @@ public class PlayState extends GameState{
 
     private void ogreChangeAppearance(float delta) {
         ogreTexTime+=delta;
-        System.out.println(ogreTexTime);
-        if (ogreTexTime>0.6)
+        if (ogreTexTime>0.3)
         {
             ogreTexTime=0;
         }
-        if(ogreTexTime>0.3) {
+        if(ogreTexTime>0.15) {
             ogreTex = ogreTex1;
         }
         else
@@ -257,6 +252,7 @@ public class PlayState extends GameState{
         batch.draw(ogreTex,ogre.getPosition().x*PPM-(ogreTex.getWidth()/2),ogre.getPosition().y*PPM-(ogreTex.getHeight()/2));
         batch.end();
         tmr2.render();
+
     }
     public void handleInput(){}
     public Camera getCamera(){
