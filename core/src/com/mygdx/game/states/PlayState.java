@@ -474,7 +474,19 @@ public class PlayState extends GameState{
         tmr2.dispose();
         map.dispose();
         map2.dispose();
-
+        playerTex.dispose();
+        hero_down1.dispose();
+        hero_down2.dispose();
+        hero_down3.dispose();
+        hero_left1.dispose();
+        hero_left2.dispose();
+        hero_left3.dispose();
+        hero_right1.dispose();
+        hero_right2.dispose();
+        hero_right3.dispose();
+        hero_up1.dispose();
+        hero_up2.dispose();
+        hero_up3.dispose();
     }
 
 
