@@ -13,13 +13,12 @@ public class DesktopInputProcessor implements InputProcessor {
 
     private PlayState game;
     public DesktopInputProcessor(PlayState game){this.game=game;}
-    private Camera camera=game.getCamera();
+    private Camera camera;
 
     @Override
     public boolean keyDown(int keycode) {
         switch(keycode)
         {
-
             case Input.Keys.A:
                 game.inputUpdateX(-0.6f);
                 break;
@@ -73,6 +72,7 @@ public class DesktopInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
+        camera=game.getCamera();
         if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/1.13))    //A Button
         {
             game.inputUpdateX(-0.6f);
@@ -95,6 +95,7 @@ public class DesktopInputProcessor implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
+        camera=game.getCamera();
         if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/1.13/*8*/))    //A Button
         {
             game.inputUpdateX(0.6f);
