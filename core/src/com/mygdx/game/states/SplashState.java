@@ -40,7 +40,7 @@ public class SplashState extends GameState{
     }
 
 
-    
+
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1f);
