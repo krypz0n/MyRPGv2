@@ -18,21 +18,17 @@ public class DesktopInputProcessor implements InputProcessor {
         {
             case Input.Keys.A:
                 game.inputUpdateX(-0.6f);
-                game.inputUpdate();
                 break;
             case Input.Keys.D:
                 game.inputUpdateX(0.6f);
-                game.inputUpdate();
 
                 break;
             case Input.Keys.W:
                 game.inputUpdateY(0.6f);
-                game.inputUpdate();
 
                 break;
             case Input.Keys.S:
                 game.inputUpdateY(-0.6f);
-                game.inputUpdate();
 
                 break;
             /*case Input.Keys.SPACE:
@@ -49,20 +45,16 @@ public class DesktopInputProcessor implements InputProcessor {
         switch(keycode)
         {
             case Input.Keys.A:
-                game.inputUpdateX(0);
-                game.inputUpdate();
+                game.inputUpdateX(0.6f);
                 break;
             case Input.Keys.D:
-                game.inputUpdateX(0);
-                game.inputUpdate();
+                game.inputUpdateX(-0.6f);
                 break;
             case Input.Keys.W:
-                game.inputUpdateY(0);
-                game.inputUpdate();
+                game.inputUpdateY(-0.6f);
                 break;
             case Input.Keys.S:
-                game.inputUpdateY(0);
-                game.inputUpdate();
+                game.inputUpdateY(0.6f);
                 break;
         }
 

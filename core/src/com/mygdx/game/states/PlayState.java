@@ -84,7 +84,7 @@ public class PlayState extends GameState{
 		cameraUpdate();
 		tmr.setView(camera);
 		batch.setProjectionMatrix(camera.combined);
-
+        inputUpdate();
 
     }
     public void cameraUpdate() {
@@ -100,10 +100,11 @@ public class PlayState extends GameState{
         player.setLinearVelocity(inputUpdtX*5,inputUpdtY*5);
     }
     public void inputUpdateY(float y) {
-        inputUpdtY=y;
+        inputUpdtY+=y;
+
     }
     public void inputUpdateX(float x) {
-        inputUpdtX=x;
+        inputUpdtX+=x;
     }
 
     @Override
