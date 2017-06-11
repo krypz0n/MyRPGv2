@@ -35,11 +35,20 @@ public class Main extends ApplicationAdapter {
 
 	private OrthographicCamera camera;
 
+	private String type;
+
+	public static final int WIDTH=640;
+	public static final int HEIGHT=360;
+
+	public Main(String type) {
+		this.type=type;
+	}
+
 
 	@Override
 	public void create () {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+		float w = WIDTH;
+		float h = HEIGHT;
 
 
 		camera= new OrthographicCamera();

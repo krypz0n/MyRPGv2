@@ -12,8 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Main;
 import com.mygdx.game.managers.GameStateManager;
-import com.mygdx.game.utils.Constants;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
+import static com.mygdx.game.utils.Constants.*;
 
 public class MenuState extends GameState{
     private Texture background;
@@ -42,7 +41,7 @@ public class MenuState extends GameState{
         playButton = new ImageButton(drawable);
         stage=new Stage(new ScreenViewport());
         stage.addActor(playButton);
-        playButton.setPosition(66 ,130);
+        playButton.setPosition((V_WIDTH/2)-(playButton.getWidth()/2) ,130);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -67,9 +66,9 @@ public class MenuState extends GameState{
     @Override
     public void render() {
         batch.begin();
-        batch.draw(background,0,0, Constants.V_WIDTH, Constants.V_HEIGHT);
-        batch.draw(logo, 27,210);
-        batch.draw(optionsbutton, 66,40);
+       // batch.draw(background,0,0, 240, 240);
+        batch.draw(logo, (V_WIDTH/2)-(logo.getWidth()/2),210);
+        batch.draw(optionsbutton, (V_WIDTH/2)-(optionsbutton.getWidth()/2),40);
 
         batch.end();
         stage.draw();

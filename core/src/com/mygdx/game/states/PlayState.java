@@ -20,7 +20,7 @@ import com.mygdx.game.input.DesktopInputProcessor;
 import com.mygdx.game.managers.GameStateManager;
 import com.mygdx.game.utils.TiledObjectUtil;
 
-import static com.mygdx.game.utils.Constants.PPM;
+import static com.mygdx.game.utils.Constants.*;
 
 public class PlayState extends GameState{
 
@@ -85,8 +85,11 @@ public class PlayState extends GameState{
 		tmr.setView(camera);
 		batch.setProjectionMatrix(camera.combined);
         inputUpdate();
+        heroUpdate();
 
     }
+
+
     public void cameraUpdate() {
         //a+(b-a) * lerp
         //b=target; a=current camera position
@@ -99,14 +102,19 @@ public class PlayState extends GameState{
     public void inputUpdate() { //converter isto
         player.setLinearVelocity(inputUpdtX*5,inputUpdtY*5);
     }
-    public void inputUpdateY(float y) {
+    public void inputUpdateY(float y)
+    {
         inputUpdtY+=y;
-
     }
-    public void inputUpdateX(float x) {
+    public void inputUpdateX(float x)
+    {
         inputUpdtX+=x;
     }
 
+
+    private void heroUpdate() {
+
+    }
     @Override
     public void render() {
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1f);

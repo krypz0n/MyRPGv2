@@ -67,15 +67,48 @@ public class DesktopInputProcessor implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button)
+    {
+        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/8))    //A Button
+        {
+            game.inputUpdateX(-0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/8))    //D Button
+        {
+            game.inputUpdateX(0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/6))    //W Button
+        {
+            game.inputUpdateY(0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/14))    //S Button
+        {
+            game.inputUpdateY(-0.6f);
+        }
         return false;
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    public boolean touchUp(int screenX, int screenY, int pointer, int button)
+    {
+        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/8))    //A Button
+        {
+            game.inputUpdateX(-0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/8))    //D Button
+        {
+            game.inputUpdateX(0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/6))    //W Button
+        {
+            game.inputUpdateY(0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/14))    //S Button
+        {
+            game.inputUpdateY(-0.6f);
+        }
         return false;
     }
-
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
