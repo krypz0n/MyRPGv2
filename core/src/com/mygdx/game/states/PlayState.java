@@ -25,8 +25,8 @@ import static com.mygdx.game.utils.Constants.*;
 
 public class PlayState extends GameState{
 
-    private OrthogonalTiledMapRenderer tmr;
-    private TiledMap map;
+    private OrthogonalTiledMapRenderer tmr,tmr2;
+    private TiledMap map,map2;
 
     private Box2DDebugRenderer b2dr;
     private World world;
@@ -65,9 +65,13 @@ public class PlayState extends GameState{
 
 
 		map= new TmxMapLoader().load("Maps/FinalMap.tmx");
-		tmr= new OrthogonalTiledMapRenderer(map);
+        map2= new TmxMapLoader().load("Maps/FinalMap2.tmx");
 
-		TiledObjectUtil.parseTiledObjectLayer(world,map.getLayers().get("SOLIDLAYER").getObjects());
+        tmr= new OrthogonalTiledMapRenderer(map);
+        tmr2= new OrthogonalTiledMapRenderer(map2);
+
+
+        TiledObjectUtil.parseTiledObjectLayer(world,map.getLayers().get("SOLIDLAYER").getObjects());
 
         DesktopInputProcessor proc = new DesktopInputProcessor(this);
         Gdx.input.setInputProcessor(proc);
@@ -101,16 +105,18 @@ public class PlayState extends GameState{
 
 		cameraUpdate();
 		tmr.setView(camera);
+        tmr2.setView(camera);
 		batch.setProjectionMatrix(camera.combined);
         inputUpdate();
         heroUpdate();
-        ogreCheck();
         ogreUpdate();
-        System.out.println("x: "+ogre.getPosition().x+" y: "+ogre.getPosition().y);
 
     }
 
-
+    private void ogreUpdate() {
+        ogreCheck();
+        ogreSpeedUpdate();
+    }
 
 
     public void cameraUpdate() {
@@ -134,7 +140,7 @@ public class PlayState extends GameState{
         inputUpdtX+=x;
     } //0.6f
 
-    private void ogreUpdate() {
+    private void ogreSpeedUpdate() {
         ogre.setLinearVelocity(ogreInputUpdtX,ogreInputUpdtY);
         }
 
@@ -147,11 +153,6 @@ public class PlayState extends GameState{
     }
 
     private void ogreReturn() {
-        double targetX1=35;
-        double targetX2=35.2;
-        double targetY1=33.5;
-        double targetY2=33.7;
-        System.out.println("bang");
         if(ogre.getPosition().x>targetX1 && ogre.getPosition().x<targetX2)
         {
             ogreInputUpdtX=0f;
@@ -188,20 +189,20 @@ public class PlayState extends GameState{
 
         if(ogre.getPosition().x>targetX)
         {
-             ogreInputUpdtX= -0.7f;
+             ogreInputUpdtX= -0.9f;
         }
         else if(ogre.getPosition().x<targetX) {
 
-            ogreInputUpdtX=0.7f;
+            ogreInputUpdtX=0.9f;
         }
         else ogreInputUpdtX=0f;
 
         if(ogre.getPosition().y>targetY)
         {
-            ogreInputUpdtY= -0.7f;
+            ogreInputUpdtY= -0.9f;
         }
         else if(ogre.getPosition().y<targetY) {
-            ogreInputUpdtY=0.7f;
+            ogreInputUpdtY=0.9f;
         }
         else ogreInputUpdtY=0f;
     }
@@ -217,7 +218,7 @@ public class PlayState extends GameState{
 
 
         b2dr.render(world,camera.combined.scl(PPM));
-        //tmr.render();
+        tmr.render();
         batch.begin();  //nao meter gamelogic aqui
         batch.draw(playerTex,player.getPosition().x*PPM-(playerTex.getWidth()/2),player.getPosition().y*PPM-(playerTex.getHeight()/3));
 //        batch.draw(arrowleft,camera.position.x-(V_WIDTH/4),camera.position.y-(V_HEIGHT/4));
@@ -226,6 +227,7 @@ public class PlayState extends GameState{
 //        batch.draw(arrowup,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4)+(arrowup.getHeight()));
         batch.draw(ogreTex,ogre.getPosition().x*PPM-(ogreTex.getWidth()/2),ogre.getPosition().y*PPM-(ogreTex.getHeight()/2));
         batch.end();
+        tmr2.render();
     }
     public void handleInput(){}
     public Camera getCamera(){
@@ -238,7 +240,9 @@ public class PlayState extends GameState{
         world.dispose();
         batch.dispose();
         tmr.dispose();
+        tmr2.dispose();
         map.dispose();
+        map2.dispose();
     }
 
 

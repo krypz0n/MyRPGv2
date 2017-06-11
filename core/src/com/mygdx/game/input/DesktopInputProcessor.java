@@ -21,18 +21,18 @@ public class DesktopInputProcessor implements InputProcessor {
         switch(keycode)
         {
             case Input.Keys.A:
-                game.inputUpdateX(-0.6f);
+                game.inputUpdateX(-0.4f);
                 break;
             case Input.Keys.D:
-                game.inputUpdateX(0.6f);
+                game.inputUpdateX(0.4f);
 
                 break;
             case Input.Keys.W:
-                game.inputUpdateY(0.6f);
+                game.inputUpdateY(0.4f);
 
                 break;
             case Input.Keys.S:
-                game.inputUpdateY(-0.6f);
+                game.inputUpdateY(-0.4f);
 
                 break;
             /*case Input.Keys.SPACE:
@@ -49,16 +49,16 @@ public class DesktopInputProcessor implements InputProcessor {
         switch(keycode)
         {
             case Input.Keys.A:
-                game.inputUpdateX(0.6f);
+                game.inputUpdateX(0.4f);
                 break;
             case Input.Keys.D:
-                game.inputUpdateX(-0.6f);
+                game.inputUpdateX(-0.4f);
                 break;
             case Input.Keys.W:
-                game.inputUpdateY(-0.6f);
+                game.inputUpdateY(-0.4f);
                 break;
             case Input.Keys.S:
-                game.inputUpdateY(0.6f);
+                game.inputUpdateY(0.4f);
                 break;
         }
 
@@ -76,7 +76,6 @@ public class DesktopInputProcessor implements InputProcessor {
         //A
         if(((screenX < Gdx.graphics.getWidth()/10.7) && (screenX > Gdx.graphics.getWidth()/32)) && ((screenY < Gdx.graphics.getHeight()/6.3) && (screenY > Gdx.graphics.getHeight()/14)))    //A Button
         {
-            System.out.println("bang");
             game.inputUpdateX(-0.6f);
         }
         //D
