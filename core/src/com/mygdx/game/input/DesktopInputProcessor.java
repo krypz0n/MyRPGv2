@@ -66,15 +66,21 @@ public class DesktopInputProcessor implements InputProcessor {
         {
             case Input.Keys.A:
                 game.inputUpdateX(0.4f);
+                game.notMoving(0);
+
                 break;
             case Input.Keys.D:
                 game.inputUpdateX(-0.4f);
+                game.notMoving(2);
                 break;
             case Input.Keys.W:
                 game.inputUpdateY(-0.4f);
+                game.notMoving(3);
                 break;
             case Input.Keys.S:
                 game.inputUpdateY(0.4f);
+                game.notMoving(1);
+
                 break;
         }
 

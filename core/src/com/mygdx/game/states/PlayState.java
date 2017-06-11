@@ -39,11 +39,28 @@ public class PlayState extends GameState{
     private Body ogre;
 
     private Boolean running=true;
+    private int lastdirection=2; //a-0 s-1 d-2 w-3
+    private int movingDir;
+
 
     private double ogreTexTime=0;
+    private double playerTexTime=0;
     private float inputUpdtX=0, inputUpdtY=0;
 
     private Texture playerTex;
+    private Texture hero_down1;
+    private Texture hero_down2;
+    private Texture hero_down3;
+    private Texture hero_up1;
+    private Texture hero_up2;
+    private Texture hero_up3;
+    private Texture hero_left1;
+    private Texture hero_left2;
+    private Texture hero_left3;
+    private Texture hero_right1;
+    private Texture hero_right2;
+    private Texture hero_right3;
+
     private Texture ogreTex;
     private Texture ogreTex1;
     private Texture ogreTex2;
@@ -73,13 +90,28 @@ public class PlayState extends GameState{
 
 		batch=new SpriteBatch();
 		playerTex=new Texture("Images/hero_down1.png");
+        hero_down1=new Texture("Images/hero_down1.png");
+        hero_down2=new Texture("Images/hero_down2.png");
+        hero_down3=new Texture("Images/hero_down3.png");
+        hero_up1=new Texture("Images/hero_up1.png");
+        hero_up2=new Texture("Images/hero_up2.png");
+        hero_up3=new Texture("Images/hero_up3.png");
+        hero_right1=new Texture("Images/hero_right1.png");
+        hero_right2=new Texture("Images/hero_right2.png");
+        hero_right3=new Texture("Images/hero_right3.png");
+        hero_left1=new Texture("Images/hero_left1.png");
+        hero_left2=new Texture("Images/hero_left2.png");
+        hero_left3=new Texture("Images/hero_left3.png");
+
         ogreTex =new Texture("Images/ogre_down.png");
         ogreTex1 =new Texture("Images/ogre_down.png");
         ogreTex2 =new Texture("Images/ogre_up.png");
+
         arrowleft=new Texture("Images/arrow_left.png");
         arrowright=new Texture("Images/arrow_right.png");
         arrowup=new Texture("Images/arrow_up.png");
         arrowdown=new Texture("Images/arrow_down.png");
+
 		map= new TmxMapLoader().load("Maps/FinalMap.tmx");
         map2= new TmxMapLoader().load("Maps/FinalMap2.tmx");
 
@@ -138,7 +170,7 @@ public class PlayState extends GameState{
             public void beginContact(Contact contact) {
                 Fixture fixtureA = contact.getFixtureA();
                 Fixture fixtureB = contact.getFixtureB();
-                Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+               // Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
                 if(fixtureA.getBody()==player && fixtureB.getBody()==ogre) {
                     running=false;
                 }
@@ -152,7 +184,7 @@ public class PlayState extends GameState{
             public void endContact(Contact contact) {
                 Fixture fixtureA = contact.getFixtureA();
                 Fixture fixtureB = contact.getFixtureB();
-                Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+               // Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
             }
 
             /**
@@ -193,7 +225,7 @@ public class PlayState extends GameState{
         tmr2.setView(camera);
 		batch.setProjectionMatrix(camera.combined);
         inputUpdate();
-        heroUpdate();
+        heroUpdate(delta);
         ogreUpdate(delta);
 
     }
@@ -301,7 +333,6 @@ public class PlayState extends GameState{
 
     private void ogreChase() {
 
-
         float targetX=player.getPosition().x;
         float targetY=player.getPosition().y;
 
@@ -342,12 +373,69 @@ public class PlayState extends GameState{
         else
             ogreTex = ogreTex2;
 
-
     }
 
+    public void notMoving(int dir){lastdirection=dir;}
 
-    private void heroUpdate() {
-//TEXTURAS
+    private void heroUpdate(float delta) {
+        playerTexTime+=delta;
+        if (playerTexTime>0.4)
+        {playerTexTime=0;}
+        Vector2 vec=player.getLinearVelocity();
+        System.out.println(vec.x+" "+vec.y);
+
+        if(vec.x==0.0&&vec.y==0.0) {
+
+            switch (lastdirection) {
+                case 0:
+                    playerTex = hero_left1;
+                    break;
+                case 1:
+                    playerTex = hero_down1;
+                    break;
+                case 2:
+                    playerTex = hero_right1;
+                    break;
+                case 3:
+                    playerTex = hero_up1;
+                    break;
+            }
+        }
+        else {
+
+            if(vec.x>0){movingDir=2;}
+            if(vec.x<0){movingDir=0;}
+            if(vec.y>0){movingDir=3;}
+            if(vec.y<0){movingDir=1;}
+
+            switch (movingDir) {
+                case 0:
+                    if (playerTexTime > 0.2)
+                    {
+                        playerTex = hero_left2;
+                     }
+                    else {playerTex=hero_left1;
+                    }
+                    break;
+                case 1:
+                    if(playerTexTime>0.2)
+                        playerTex = hero_down2;
+                    else
+                        playerTex=hero_down3;
+                    break;
+                case 2:
+                    if(playerTexTime>0.2)
+                        playerTex = hero_right2;
+                    else playerTex=hero_right1;
+                    break;
+                case 3:
+                    if(playerTexTime>0.2)
+                        playerTex = hero_up2;
+                    else
+                        playerTex=hero_up3;
+                    break;
+            }
+        }
     }
 
 
@@ -386,6 +474,7 @@ public class PlayState extends GameState{
         tmr2.dispose();
         map.dispose();
         map2.dispose();
+
     }
 
 
