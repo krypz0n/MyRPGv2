@@ -4,13 +4,16 @@ package com.mygdx.game.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.states.PlayState;
+
+
 
 public class DesktopInputProcessor implements InputProcessor {
 
     private PlayState game;
-
     public DesktopInputProcessor(PlayState game){this.game=game;}
+    private Camera camera=game.getCamera();
 
     @Override
     public boolean keyDown(int keycode) {
@@ -69,19 +72,19 @@ public class DesktopInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/8))    //A Button
+        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/1.13))    //A Button
         {
             game.inputUpdateX(-0.6f);
         }
-        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/8))    //D Button
+        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/1.13))    //D Button
         {
             game.inputUpdateX(0.6f);
         }
-        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/6))    //W Button
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/1.2))    //W Button
         {
             game.inputUpdateY(0.6f);
         }
-        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/14))    //S Button
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/1.05))    //S Button
         {
             game.inputUpdateY(-0.6f);
         }
@@ -91,21 +94,21 @@ public class DesktopInputProcessor implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/8))    //A Button
-        {
-            game.inputUpdateX(-0.6f);
-        }
-        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/8))    //D Button
+        if((screenX < Gdx.graphics.getWidth()/16) && (screenY < Gdx.graphics.getHeight()/1.13/*8*/))    //A Button
         {
             game.inputUpdateX(0.6f);
         }
-        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/6))    //W Button
+        else if((screenX < Gdx.graphics.getWidth()/5.325) && (screenY < Gdx.graphics.getHeight()/1.13/*8*/))    //D Button
         {
-            game.inputUpdateY(0.6f);
+            game.inputUpdateX(-0.6f);
         }
-        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/14))    //S Button
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/1.2/*6*/))    //W Button
         {
             game.inputUpdateY(-0.6f);
+        }
+        else if((screenX < Gdx.graphics.getWidth()/8) && (screenY < Gdx.graphics.getHeight()/1.05/*14*/))    //S Button
+        {
+            game.inputUpdateY(0.6f);
         }
         return false;
     }

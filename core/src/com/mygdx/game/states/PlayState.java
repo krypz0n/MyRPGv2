@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,6 +35,11 @@ public class PlayState extends GameState{
     private float inputUpdtX=0, inputUpdtY=0;
 
     private Texture tex;
+    private Texture arrowleft;
+    private Texture arrowright;
+    private Texture arrowup;
+    private Texture arrowdown;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
         world= new World(new Vector2(0,0),false); //gravidade
@@ -44,6 +50,10 @@ public class PlayState extends GameState{
 
 		batch=new SpriteBatch();
 		tex=new Texture("Images/hero_down1.png");
+        arrowleft=new Texture("Images/arrow_left.png");
+        arrowright=new Texture("Images/arrow_right.png");
+        arrowup=new Texture("Images/arrow_up.png");
+        arrowdown=new Texture("Images/arrow_down.png");
 
 
 		map= new TmxMapLoader().load("Maps/FinalMap.tmx");
@@ -125,10 +135,17 @@ public class PlayState extends GameState{
         tmr.render();
         batch.begin();  //nao meter gamelogic aqui
         batch.draw(tex,player.getPosition().x*PPM-(tex.getWidth()/2),player.getPosition().y*PPM-(tex.getHeight()/3));
+        batch.draw(arrowleft,camera.position.x-(V_WIDTH/4),camera.position.y-(V_HEIGHT/4));
+        batch.draw(arrowright,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()*2),camera.position.y-(V_HEIGHT/4));
+        batch.draw(arrowdown,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4));
+        batch.draw(arrowup,camera.position.x-(V_WIDTH/4)+(arrowright.getWidth()),camera.position.y-(V_HEIGHT/4)+(arrowup.getHeight()));
+
         batch.end();
     }
     public void handleInput(){}
-
+    public Camera getCamera(){
+        return camera;
+    }
     @Override
     public void dispose() {
 
