@@ -266,10 +266,20 @@ public class PlayState extends GameState{
     public void inputUpdate() { //converter isto
         player.setLinearVelocity(inputUpdtX*5,inputUpdtY*5);
     }
+
+    /**
+     *
+     * @param y
+     */
     public void inputUpdateY(float y)
     {
         inputUpdtY+=y;
     }
+
+    /**
+     * 
+     * @param x
+     */
     public void inputUpdateX(float x)
     {
         inputUpdtX+=x;
@@ -375,8 +385,16 @@ public class PlayState extends GameState{
 
     }
 
+    /**
+     *
+     * @param dir
+     */
     public void notMoving(int dir){lastdirection=dir;}
 
+    /**
+     *
+     * @param delta
+     */
     private void heroUpdate(float delta) {
         playerTexTime+=delta;
         if (playerTexTime>0.4)
