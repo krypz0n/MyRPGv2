@@ -56,6 +56,11 @@ public class PlayState extends GameState{
     float ogreInputUpdtX=0;
     float ogreInputUpdtY=0;
 
+
+    /**
+     *
+     * @param gsm
+     */
     public PlayState(GameStateManager gsm) {
         super(gsm);
         world= new World(new Vector2(0,0),false); //gravidade
@@ -89,6 +94,16 @@ public class PlayState extends GameState{
         createCollisionListener();
     }
 
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param isStatic
+     * @return
+     */
     public Body createBox(int x, int y,int width, int height, boolean isStatic) { //definir no mundo o player?
         Body pBody;
         BodyDef def = new BodyDef();
@@ -110,8 +125,15 @@ public class PlayState extends GameState{
         return pBody;
     }
 
+
+
     public void createCollisionListener(){
         world.setContactListener(new ContactListener() {
+
+            /**
+             *
+             * @param contact
+             */
             @Override
             public void beginContact(Contact contact) {
                 Fixture fixtureA = contact.getFixtureA();
@@ -122,6 +144,10 @@ public class PlayState extends GameState{
                 }
             }
 
+            /**
+             *
+             * @param contact
+             */
             @Override
             public void endContact(Contact contact) {
                 Fixture fixtureA = contact.getFixtureA();
@@ -129,11 +155,22 @@ public class PlayState extends GameState{
                 Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
             }
 
+            /**
+             *
+             * @param contact
+             * @param oldManifold
+             */
             @Override
             public void preSolve(Contact contact, Manifold oldManifold) {
 
             }
 
+
+            /**
+             *
+             * @param contact
+             * @param impulse
+             */
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
 
@@ -141,6 +178,11 @@ public class PlayState extends GameState{
         });
     }
 
+
+    /**
+     *
+     * @param delta
+     */
     @Override
     public void update(float delta) {
 
@@ -156,6 +198,7 @@ public class PlayState extends GameState{
 
     }
 
+
     private void gameCheck() {
         if(running==false)
         {
@@ -165,10 +208,16 @@ public class PlayState extends GameState{
         }
     }
 
+    /**
+     *
+     * @param delta
+     */
     private void ogreUpdate(float delta) {
         ogreCheck();
         ogreSpeedUpdate(delta);
     }
+
+
 
 
     public void cameraUpdate() {
@@ -180,6 +229,8 @@ public class PlayState extends GameState{
         camera.position.set(position);
         camera.update();
     }
+
+
     public void inputUpdate() { //converter isto
         player.setLinearVelocity(inputUpdtX*5,inputUpdtY*5);
     }
@@ -192,12 +243,19 @@ public class PlayState extends GameState{
         inputUpdtX+=x;
     } //0.6f
 
+
+    /**
+     *
+     * @param delta
+     */
     private void ogreSpeedUpdate(float delta) {
 
         ogre.setLinearVelocity(ogreInputUpdtX,ogreInputUpdtY);
         if((ogreInputUpdtY!=0 )|| (ogreInputUpdtY!=0))
             ogreChangeAppearance(delta);
         }
+
+
 
     private void ogreCheck() {
         if(player.getPosition().x>30)
@@ -206,6 +264,8 @@ public class PlayState extends GameState{
             ogreReturn();
 
     }
+
+
 
     private void ogreReturn() {
         if(ogre.getPosition().x>targetX1 && ogre.getPosition().x<targetX2)
@@ -237,6 +297,8 @@ public class PlayState extends GameState{
     }
 
 
+
+
     private void ogreChase() {
 
 
@@ -263,6 +325,11 @@ public class PlayState extends GameState{
         else ogreInputUpdtY=0f;
     }
 
+
+    /**
+     *
+     * @param delta
+     */
     private void ogreChangeAppearance(float delta) {
         ogreTexTime+=delta;
         if (ogreTexTime>0.3)
@@ -282,6 +349,8 @@ public class PlayState extends GameState{
     private void heroUpdate() {
 //TEXTURAS
     }
+
+
     @Override
     public void render() {
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1f);
@@ -305,6 +374,8 @@ public class PlayState extends GameState{
     public Camera getCamera(){
         return camera;
     }
+
+
     @Override
     public void dispose() {
 

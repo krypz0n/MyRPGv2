@@ -13,9 +13,19 @@ import static com.mygdx.game.utils.Constants.*;
 public class DesktopInputProcessor implements InputProcessor {
 
     private PlayState game;
+
+    /**
+     *
+     * @param game
+     */
     public DesktopInputProcessor(PlayState game){this.game=game;}
     private Camera camera;
 
+    /**
+     *
+     * @param keycode
+     * @return
+     */
     @Override
     public boolean keyDown(int keycode) {
         switch(keycode)
@@ -44,6 +54,12 @@ public class DesktopInputProcessor implements InputProcessor {
         return false;
     }
 
+
+    /**
+     *
+     * @param keycode
+     * @return
+     */
     @Override
     public boolean keyUp(int keycode) {
         switch(keycode)
@@ -65,11 +81,26 @@ public class DesktopInputProcessor implements InputProcessor {
         return false;
     }
 
+
+    /**
+     *
+     * @param character
+     * @return
+     */
     @Override
     public boolean keyTyped(char character) {
         return false;
     }
 
+
+    /**
+     *
+     * @param screenX
+     * @param screenY
+     * @param pointer
+     * @param button
+     * @return
+     */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
@@ -96,6 +127,15 @@ public class DesktopInputProcessor implements InputProcessor {
         return false;
     }
 
+
+    /**
+     *
+     * @param screenX
+     * @param screenY
+     * @param pointer
+     * @param button
+     * @return
+     */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
@@ -121,16 +161,37 @@ public class DesktopInputProcessor implements InputProcessor {
         }
         return false;
     }
+
+    /**
+     *
+     * @param screenX
+     * @param screenY
+     * @param pointer
+     * @return
+     */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
 
+
+    /**
+     *
+     * @param screenX
+     * @param screenY
+     * @return
+     */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 
+
+    /**
+     *
+     * @param amount
+     * @return
+     */
     @Override
     public boolean scrolled(int amount) {
         return false;

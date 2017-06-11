@@ -9,6 +9,11 @@ public class DynamicObject extends GameObject {
     protected Vector3 position;
     protected Vector3 velocity;
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public DynamicObject(int x,int y)
     {
         super(x, y);

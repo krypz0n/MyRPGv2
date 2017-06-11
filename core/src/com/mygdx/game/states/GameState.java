@@ -15,6 +15,11 @@ public abstract class GameState {
     protected SpriteBatch batch;
     protected OrthographicCamera camera;
 
+
+    /**
+     *
+     * @param gsm
+     */
     protected GameState(GameStateManager gsm){
         this.gsm=gsm;
         this.app=gsm.main();
@@ -23,6 +28,12 @@ public abstract class GameState {
 
     }
 
+
+    /**
+     *
+     * @param w
+     * @param h
+     */
     public void resize(int w, int h){
 
         camera.setToOrtho(false,w,h);

@@ -28,6 +28,10 @@ public class MenuState extends GameState{
     private ImageButton playButton;
 
 
+    /**
+     *
+     * @param gsm
+     */
     public MenuState(GameStateManager gsm) {
         super(gsm);
         background=new Texture("Images/landscape.png");
@@ -45,6 +49,8 @@ public class MenuState extends GameState{
         Gdx.input.setInputProcessor(stage);
     }
 
+
+
     @Override
     public void handleInput() {
         if(playButton.isPressed()){
@@ -53,15 +59,28 @@ public class MenuState extends GameState{
         }
     }
 
+
+    /**
+     *
+     * @param w
+     * @param h
+     */
     @Override
     public void resize(int w, int h) {
         super.resize(w, h);
     }
 
+
+    /**
+     *
+     * @param delta
+     */
     @Override
     public void update(float delta) {
         handleInput();
     }
+
+
 
     @Override
     public void render() {
@@ -73,6 +92,8 @@ public class MenuState extends GameState{
         batch.end();
         stage.draw();
     }
+
+
 
     @Override
     public void dispose() {

@@ -16,34 +16,63 @@ public class GameStateManager {
 
     private Stack<GameState> states;
 
+
     public enum State{
         SPLASH,
         MAINMENU,
         PLAY
     }
 
+
+    /**
+     *
+     * @param app
+     */
     public GameStateManager(final Main app){
         this.app=app;
         this.states=new Stack<GameState>();
         this.setState(State.MAINMENU);
     }
 
+
+    /**
+     *
+     * @return
+     */
     public Main main(){
         return app;
     }
 
+
+    /**
+     *
+     * @param delta
+     */
     public void update(float delta){
         states.peek().update(delta);
     }
+
+
 
     public void render(){
         states.peek().render();
     }
 
+
+    /**
+     *
+     * @param w
+     * @param h
+     */
     public void resize(int w, int h){
         states.peek().resize(w,h);
     }
 
+
+    /**
+     *
+     * @param state
+     */
     public void setState(State state){
         if(states.size()>=1) {
             states.pop().dispose();
@@ -53,6 +82,12 @@ public class GameStateManager {
 
     }
 
+
+    /**
+     *
+     * @param state
+     * @return
+     */
     private GameState getState(State state){
         switch(state){
             case SPLASH: return new SplashState(this);
@@ -63,6 +98,10 @@ public class GameStateManager {
         return null;
     }
 
+
+    /**
+     *
+     */
     public void dispose(){
         for (GameState gs: states){
             gs.dispose();

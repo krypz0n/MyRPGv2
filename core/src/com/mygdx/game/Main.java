@@ -40,9 +40,16 @@ public class Main extends ApplicationAdapter {
 	public static final int WIDTH=640;
 	public static final int HEIGHT=360;
 
+
+	/**
+	 *
+	 * @param type
+	 */
 	public Main(String type) {
 		this.type=type;
 	}
+
+
 
 
 	@Override
@@ -58,12 +65,20 @@ public class Main extends ApplicationAdapter {
 
 
 	}
+
+	/**
+	 *
+	 * @param width
+	 * @param height
+	 */
 	@Override
 	public void resize(int width, int height) {
 
 		gsm.resize((int)(width/SCALE),(int)(height/SCALE));
 		/*camera.setToOrtho(false,width/SCALE,height/SCALE);*/
 	}
+
+
 
 	@Override
 	public void render () {
@@ -78,6 +93,8 @@ public class Main extends ApplicationAdapter {
 	public SpriteBatch getSpriteBatch(){
 		return batch;
 	}
+
+
 	@Override
 	public void dispose () {
 

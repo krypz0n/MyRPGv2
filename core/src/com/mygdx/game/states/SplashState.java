@@ -14,12 +14,22 @@ public class SplashState extends GameState{
     float acc=0f;
     Texture tex;
 
+
+    /**
+     *
+     * @param gsm
+     */
     public SplashState(GameStateManager gsm) {
         super(gsm);
         tex=new Texture("Images/loading.png");
 
     }
 
+
+    /**
+     *
+     * @param delta
+     */
     @Override
     public void update(float delta) {
         acc+=delta;
@@ -29,6 +39,8 @@ public class SplashState extends GameState{
 
     }
 
+
+    
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1f);
